@@ -8,7 +8,7 @@ var numberChar = ["1","2","3","4","5","6","7","8","9","0"];
 
 function generatePassword(len, up, spec, low, num) {
   var pass = "";
-
+  
   for (var i = 0; i < len; i++) {
     var random = Math.floor(Math.random() * 4);
     switch(random) {
@@ -36,27 +36,28 @@ function generatePassword(len, up, spec, low, num) {
         break;
     }
   }
+  return pass;
 }
 
 // Write password to the #password input
 function writePassword() {
   //all of the prompts for the user to input their code
   var userInput = prompt("Choose a character amount between 8-128");
+  if(userInput < 8 || userInput > 128) {
+    alert("Please choose a number between 8-128");
+    return;
+  }
   var uprCasePrompt = confirm("Would you like uppercase letters in your password?");
   var spclCharPrompt = confirm("Would you like special characters in your password?");
   var lwrCasePrompt = confirm("Would you like lowercase letters in your password?");
   var numCharPrompt = confirm("Would you like numbers in your password?");
   
-  if(userInput < 8 || userInput > 128) {
-    alert("Please choose a number between 8-128");
-    return;
-  }
-
   if(uprCasePrompt === false && spclCharPrompt === false && lwrCasePrompt === false && numCharPrompt === false) {
     alert("Please choose at least one option");
     return;
   }
   var password = generatePassword(userInput, uprCasePrompt, spclCharPrompt, lwrCasePrompt, numCharPrompt);
+
   var passwordText = document.querySelector("#password");
   
   passwordText.value = password;
